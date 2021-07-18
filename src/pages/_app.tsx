@@ -7,6 +7,9 @@ import PageLayout from "@Templates/Layout";
 import "./../styles/style.scss";
 import { useRouter } from "next/router";
 
+import "@fortawesome/fontawesome-free/js/all.min.js";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+
 interface IAppProps extends AppProps {}
 
 const App = ({ Component, pageProps }: IAppProps) => {

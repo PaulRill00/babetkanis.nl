@@ -1,0 +1,35 @@
+.page-scroller {
+  position: absolute;
+  left: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: fit-content;
+  height: fit-content;
+  z-index: 100;
+
+  ul {
+    list-style: none;
+
+    .page-scroll-item {
+      height: 2rem;
+      width: 0.15rem;
+      background-color: #fff;
+      margin: 1rem 0;
+      opacity: 0.5;
+      transition: opacity 0.15s ease;
+      cursor: pointer;
+
+      a {
+        width: 2rem;
+        height: 100%;
+        display: block;
+        transform: translateX(-50%);
+      }
+
+      &.active,
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}

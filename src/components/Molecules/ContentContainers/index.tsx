@@ -9,6 +9,7 @@ export interface IContentContainer {
   material?: string;
   year: number;
   active?: boolean;
+  id: string;
 }
 
 const ContentContainer: React.FC<IVideoContainerProps> = (props) => {
@@ -20,7 +21,7 @@ const ContentContainer: React.FC<IVideoContainerProps> = (props) => {
   };
 
   return (
-    <section className="content-container">
+    <section className="content-container" id={props.id}>
       <div className={`info${props.active ? " active" : ""}`}>
         <p>{props.sort}</p>
         <p>{props.material}</p>
