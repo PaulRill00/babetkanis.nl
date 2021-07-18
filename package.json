@@ -13,7 +13,7 @@
     "start:test": "cross-env NODE_ENV=test yarn start",
     "export": "yarn build && next export",
     "type-check": "tsc",
-    "prettier-code": "prettier --write \"./!(node_modules|.next)/*/*.{ts,tsx}\"",
+    "prettier-code": "prettier --write \"./!(node_modules|.next|out)/*/*.{ts,tsx}\"",
     "test": "jest",
     "test:coverage": "jest --coverage"
   },

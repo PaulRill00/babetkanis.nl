@@ -1,8 +1,15 @@
 @import "./components/atoms/atom.button.scss";
 @import "./components/atoms/atom.navbar.scss";
+@import "./components/atoms/atom.overview_image.scss";
+@import "./components/atoms/atom.videocontainer.scss";
+
+@import "./components/molecules/molecule.contentcontainer.scss";
+
+@import "./components/templates/template.pagepadding.scss";
 
 @import "./elements/element.base.scss";
 @import "./elements/element.link.scss";
-@import "./elements/element.pagepadding.scss";
 
 @import "./pages/page.contact.scss";
+@import "./pages/page.home.scss";
+@import "./pages/page.overview.scss";

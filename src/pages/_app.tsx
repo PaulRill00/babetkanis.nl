@@ -5,10 +5,17 @@ import Head from "next/head";
 import PageLayout from "@Templates/Layout";
 
 import "./../styles/style.scss";
+import { useRouter } from "next/router";
 
 interface IAppProps extends AppProps {}
 
 const App = ({ Component, pageProps }: IAppProps) => {
+  const router = useRouter();
+
+  const pageIsFullscreen = () => {
+    return router.pathname == "/";
+  };
+
   return (
     <>
       <Head>
@@ -22,7 +29,9 @@ const App = ({ Component, pageProps }: IAppProps) => {
         />
       </Head>
 
-      <div className="app_pagelayout">
+      <div
+        className={`app_pagelayout${pageIsFullscreen() ? " fullscreen" : ""}`}
+      >
         <PageLayout>
           <Component {...pageProps} />
         </PageLayout>

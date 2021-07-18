@@ -4,6 +4,8 @@
 
 body {
   background-color: $black;
+  height: 100vh;
+  overflow: hidden;
 }
 
 *,
@@ -30,9 +32,23 @@ p {
   padding-bottom: 2rem;
   height: 100vh;
 
-  body {
+  &.fullscreen {
+    nav {
+      position: absolute;
+    }
+
+    .body {
+      height: 100%;
+    }
+  }
+
+  .body {
     height: calc(100% - var(--nav-height));
   }
+}
+
+body ::-webkit-scrollbar {
+  display: none;
 }
 
 @media (max-width: 1000px) {

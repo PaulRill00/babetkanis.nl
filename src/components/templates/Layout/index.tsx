@@ -24,7 +24,7 @@ const PageLayout = ({ ...props }: IPageLayoutProps) => {
           },
         ]}
       />
-      <body>{props.children}</body>
+      <div className="body">{props.children}</div>
     </>
   );
 };
