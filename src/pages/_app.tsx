@@ -2,13 +2,13 @@ import React from "react";
 import { AppProps } from "next/app";
 import Head from "next/head";
 
-import PageLayout from "@templates/Layout";
+import PageLayout from "@Templates/Layout";
 
 import "./../styles/style.scss";
 
 interface IAppProps extends AppProps {}
 
-export default ({ Component, pageProps }: IAppProps) => {
+const App = ({ Component, pageProps }: IAppProps) => {
   return (
     <>
       <Head>
@@ -22,11 +22,13 @@ export default ({ Component, pageProps }: IAppProps) => {
         />
       </Head>
 
-      <PageLayout>
-        <div className="app_pagelayout">
+      <div className="app_pagelayout">
+        <PageLayout>
           <Component {...pageProps} />
-        </div>
-      </PageLayout>
+        </PageLayout>
+      </div>
     </>
   );
 };
+
+export default App;

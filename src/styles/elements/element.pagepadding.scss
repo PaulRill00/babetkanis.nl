@@ -1,0 +1,21 @@
+.page-padding {
+  height: 100%;
+
+  &.page-padding-narrow {
+    padding: 0 18.75rem;
+  }
+  &.page-padding-small {
+    padding: 0 8.75rem;
+  }
+}
+
+@media (max-width: 1700px) {
+  .page-padding {
+    &.page-padding-narrow {
+      padding: 0 12rem;
+    }
+    &.page-padding-small {
+      padding: 0 6rem;
+    }
+  }
+}

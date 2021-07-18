@@ -1,0 +1,35 @@
+nav {
+  width: 100%;
+  height: var(--nav-height);
+  background: $black;
+  background: linear-gradient(
+    180deg,
+    rgba($black, 1) 0%,
+    rgba($black, 1) 25%,
+    rgba($black, 0) 85%,
+    rgba($black, 0) 100%
+  );
+  padding: 0 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: top;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+
+  ul {
+    width: 100%;
+    list-style: none;
+    line-height: 4.5rem;
+    display: inline-block;
+    width: auto;
+    li {
+      display: inline-block;
+      margin: 0 1.5rem;
+
+      &.active > a {
+        color: #fff;
+      }
+    }
+  }
+}

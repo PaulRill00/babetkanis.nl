@@ -19,11 +19,11 @@
     "target": "esnext",
     "baseUrl": ".",
     "paths": {
-      "@atoms/*": ["src/components/atoms/*"],
-      "@molecules/*": ["src/components/molecules/*"],
-      "@organisms/*": ["src/components/organisms/*"],
-      "@templates/*": ["src/components/templates/*"],
-      "@interfaces/*": ["src/interfaces/*"],
+      "@Atoms/*": ["src/components/Atoms/*"],
+      "@Molecules/*": ["src/components/Molecules/*"],
+      "@Organisms/*": ["src/components/Organisms/*"],
+      "@Templates/*": ["src/components/Templates/*"],
+      "@interfaces/*": ["src/interfaces/*"]
     }
   },
   "exclude": ["node_modules"],

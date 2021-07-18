@@ -1,0 +1,42 @@
+:root {
+  --nav-height: 9rem;
+}
+
+body {
+  background-color: $black;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  color: $white;
+}
+
+.app_pagelayout {
+  display: inline-block;
+  width: 100%;
+  padding-bottom: 2rem;
+  height: 100vh;
+
+  body {
+    height: calc(100% - var(--nav-height));
+  }
+}
+
+@media (max-width: 1000px) {
+  .app_pagelayout {
+    height: 100%;
+  }
+}

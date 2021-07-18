@@ -1,0 +1,47 @@
+.contact-grid {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  width: 100%;
+  column-gap: 7rem;
+  height: fit-content;
+
+  section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    & > p {
+      font-weight: normal;
+      font-size: 20px;
+      color: $grey;
+    }
+
+    & > a {
+      align-self: center;
+      white-space: nowrap;
+      margin-top: auto;
+    }
+  }
+
+  img {
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    row-gap: 3rem;
+
+    section {
+      & > a {
+        margin-top: 3rem;
+        position: relative;
+      }
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
