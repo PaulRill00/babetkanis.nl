@@ -1,27 +1,75 @@
 .page-scroller {
   position: absolute;
-  left: 2rem;
-  top: 50%;
-  transform: translateY(-50%);
   width: fit-content;
   height: fit-content;
   z-index: 100;
+
+  &.horizontal {
+    position: relative;
+    bottom: 0;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-items: center;
+
+    & > * {
+      display: inline-block;
+    }
+
+    svg {
+      height: 2rem;
+      margin: 0 0.5rem;
+      color: $grey;
+      transition: color 0.15s;
+      cursor: pointer;
+      &:hover {
+        color: $white;
+      }
+    }
+
+    ul {
+      .page-scroll-item {
+        width: 2rem;
+        height: 0.15rem;
+        display: inline-block;
+        margin: 0 0.5rem;
+
+        a {
+          height: 2rem;
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  &.vertical {
+    left: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+
+    ul {
+      .page-scroll-item {
+        height: 2rem;
+        width: 0.15rem;
+        margin: 1rem 0;
+        a {
+          width: 2rem;
+          height: 100%;
+        }
+      }
+    }
+  }
 
   ul {
     list-style: none;
 
     .page-scroll-item {
-      height: 2rem;
-      width: 0.15rem;
       background-color: #fff;
-      margin: 1rem 0;
       opacity: 0.5;
       transition: opacity 0.15s ease;
       cursor: pointer;
 
       a {
-        width: 2rem;
-        height: 100%;
         display: block;
         transform: translateX(-50%);
       }

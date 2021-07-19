@@ -1,18 +1,37 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowCircleLeft,
+  faArrowCircleRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 interface IPageScrollerProps {
   currentIndex: number;
   pageCount: number;
-  hrefs: string[];
   setCurrentIndex: (index: number) => void;
+  hrefs?: string[];
+  orientation?: "horizontal" | "vertical";
+  controls?: boolean;
 }
 
 const PageScroller: React.FC<IPageScrollerProps> = ({
   currentIndex,
   pageCount,
-  hrefs,
   setCurrentIndex,
+  hrefs = [],
+  orientation = "vertical",
+  controls = false,
 }) => {
+  const moveLeft = () => {
+    setCurrentIndex(currentIndex > 0 ? currentIndex - 1 : currentIndex);
+  };
+
+  const moveRight = () => {
+    setCurrentIndex(
+      currentIndex < pageCount - 1 ? currentIndex + 1 : currentIndex
+    );
+  };
+
   const renderItems = () => {
     let list: JSX.Element[] = [];
 
@@ -31,8 +50,18 @@ const PageScroller: React.FC<IPageScrollerProps> = ({
   };
 
   return (
-    <div className="page-scroller">
+    <div className={`page-scroller ${orientation}`}>
+      {controls && (
+        <FontAwesomeIcon icon={faArrowCircleLeft} onClick={() => moveLeft()} />
+      )}
       <ul>{renderItems()}</ul>
+
+      {controls && (
+        <FontAwesomeIcon
+          icon={faArrowCircleRight}
+          onClick={() => moveRight()}
+        />
+      )}
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import { IContentContainer } from "@Molecules/ContentContainers";
+import { IContentContainer } from "@Molecules/ContentContainer";
 import Unmute from "@Atoms/Unmute";
 
 export interface IVideoContainerProps extends IContentContainer {
@@ -15,7 +15,7 @@ const VideoContainer: React.FC<IVideoContainerProps> = ({
   const [muted, setMuted] = React.useState<boolean>(true);
 
   return (
-    <div className="video-container">
+    <div className="container-content video-container">
       <Unmute muted={muted} setMuted={setMuted} />
       <video autoPlay loop muted={muted}>
         <source src={videoSrc} type={videoType} />
