@@ -35,14 +35,14 @@ const ContentContainer: React.FC<
   };
 
   return (
-    <section className="content-container" id={props.id}>
+    <>
       <div className={`info${props.active ? " active" : ""}`}>
         <p>{props.sort}</p>
         <p>{props.material}</p>
         <p>{props.year}</p>
       </div>
       {renderContent()}
-    </section>
+    </>
   );
 };
 

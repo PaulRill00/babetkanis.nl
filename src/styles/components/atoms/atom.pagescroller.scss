@@ -19,11 +19,12 @@
     svg {
       height: 2rem;
       margin: 0 0.5rem;
-      color: $grey;
+      color: $white;
       transition: color 0.15s;
       cursor: pointer;
+      margin-top: -0.05rem;
       &:hover {
-        color: $white;
+        color: #fff;
       }
     }
 
@@ -37,6 +38,7 @@
         a {
           height: 2rem;
           width: 100%;
+          transform: translateY(-50%);
         }
       }
     }
@@ -55,6 +57,7 @@
         a {
           width: 2rem;
           height: 100%;
+          transform: translateX(-50%);
         }
       }
     }
@@ -71,7 +74,6 @@
 
       a {
         display: block;
-        transform: translateX(-50%);
       }
 
       &.active,

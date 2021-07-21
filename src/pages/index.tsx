@@ -14,6 +14,9 @@ const Page = () => {
   const [windowHeight, setWindowHeight] = React.useState(0);
   const scrollRef = React.createRef<HTMLDivElement>();
   const [currentIndex, setCurrentIndex] = React.useState(0);
+  const [sectionRefs, setSectionRefs] = React.useState<
+    React.RefObject<HTMLElement>[]
+  >([]);
 
   const handleScroll = () => {
     const position = scrollRef.current?.scrollTop;
@@ -51,12 +54,22 @@ const Page = () => {
     },
     {
       type: "carousel",
-      imageSrcs: ["assets/images/FilmDraaien.png", "assets/images/werk2.jpg"],
+      srcs: [
+        { src: "assets/images/FilmDraaien.png", type: "img" },
+        { src: "assets/images/werk2.jpg", type: "img" },
+        { src: "assets/images/grote_tekening.jpg", type: "img" },
+        { src: "assets/images/grote_tekening2.jpg", type: "img" },
+      ],
+      screenCols: 1,
       sort: "carousel",
       year: 2022,
       id: "3",
     },
   ];
+
+  React.useEffect(() => {
+    setSectionRefs(items.map((_) => React.createRef()));
+  }, [items.length]);
 
   const itemIsActive = (offset: number): boolean => {
     const scrollOffset = windowHeight / 5;
@@ -81,11 +94,20 @@ const Page = () => {
       <PageScroller
         currentIndex={currentIndex}
         pageCount={items.length}
-        hrefs={items.map((x) => x.id?.toString())}
-        setCurrentIndex={setCurrentIndex}
+        refs={sectionRefs}
       />
       {items.map((item, index) => (
-        <ContentContainer key={index} {...item} active={itemIsActive(index)} />
+        <section
+          key={index}
+          className="content-container"
+          ref={sectionRefs[index]}
+        >
+          <ContentContainer
+            key={index}
+            {...item}
+            active={itemIsActive(index)}
+          />
+        </section>
       ))}
     </div>
   );
