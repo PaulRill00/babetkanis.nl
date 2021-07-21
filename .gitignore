@@ -6,8 +6,7 @@
 .pnp.js
 /.next
 /out
-/public/assets/images/
-/public/assets/videos/
+/public/assets/**/
 
 # testing
 /coverage

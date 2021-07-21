@@ -5,8 +5,9 @@ import PageScroller from "@Atoms/PageScroller";
 export interface ICarouselContainerProps extends IContentContainer {
   type: "carousel";
   srcs: {
-    type: "img"|"video",
+    type: "img" | "video",
     src: string;
+    span?: number;
   }[];
   screenCols?: number;
 }
@@ -45,7 +46,10 @@ const CarouselContainer: React.FC<ICarouselContainerProps> = ({
           currentIndex={currentIndex}
           orientation="horizontal"
           pageCount={srcs.length / screenCols}
-          scrollSteps={srcs.length / (srcs.length / screenCols)}
+          scrollSteps={srcs.map(x => {
+            const itemSpan = srcs.length / (srcs.length / screenCols);
+            return x.span ? x.span - itemSpan + 1 : itemSpan;
+          })}
           refs={elRefs}
           controls
           onScrollTo={setCurrentIndex}
@@ -53,13 +57,13 @@ const CarouselContainer: React.FC<ICarouselContainerProps> = ({
       </div>
       <div
         className="carousel-items"
-        style={{ "--columns": srcs.length, "--col-width": (1/screenCols) } as React.CSSProperties}
+        style={{ "--columns": srcs.reduce((a, b) => a + (b.span ?? 1), 0).toString(), "--col-width": (1 / screenCols) } as React.CSSProperties}
         ref={scrollRef}
         onScroll={handleScroll}
       >
         {srcs.map((x, index) => (
-          <section key={index} ref={elRefs[index]} id={index.toString()}>
-            {x.type === 'img' ? <img src={x.src} alt="" /> : <video src={x.src}/>}
+          <section key={index} ref={elRefs[index]} id={index.toString()} style={x.span ? { gridColumn: `span ${x.span ?? 1}` } : {}}>
+            {x.src != '' ? (x.type === 'img' ? <img src={x.src} alt="" /> : <video src={x.src} autoPlay muted loop />) : null}
           </section>
         ))}
       </div>

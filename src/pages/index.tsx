@@ -1,11 +1,13 @@
-import ContentContainer from "@Molecules/ContentContainer";
-import { IVideoContainerProps } from "@Atoms/ContentContainers/VideoContainer";
 import React from "react";
-import PageScroller from "@Atoms/PageScroller";
-import { ICarouselContainerProps } from "@Atoms/ContentContainers/CarouselContainer";
-import { IImageContainerProps } from "@Atoms/ContentContainers/ImageContainer";
+import { NextPage } from "next";
+import items from "../data/data";
 
-const Page = () => {
+import PageScroller from "@Atoms/PageScroller";
+import ContentContainer from "@Molecules/ContentContainer";
+import { useRouter } from "next/router";
+
+const Page: NextPage = () => {
+  const router = useRouter();
   const [scrollPosition, setScrollPosition] = React.useState(0);
   const [prevScrollPosition, setPrevScrollPosition] = React.useState(0);
   const [scrollDirection, setScrollDirection] = React.useState<"up" | "down">(
@@ -32,41 +34,6 @@ const Page = () => {
     setWindowHeight(window !== undefined ? window.innerHeight : 0);
   }, []);
 
-  const items: (
-    | IVideoContainerProps
-    | IImageContainerProps
-    | ICarouselContainerProps
-  )[] = [
-    {
-      type: "video",
-      videoSrc: "assets/videos/werk.mp4",
-      videoType: "video/mp4",
-      sort: "video installatie",
-      year: 2021,
-      id: "1",
-    },
-    {
-      type: "image",
-      imageSrc: "assets/images/werk2.jpg",
-      sort: "videoinstallatie 2",
-      year: 2022,
-      id: "2",
-    },
-    {
-      type: "carousel",
-      srcs: [
-        { src: "assets/images/FilmDraaien.png", type: "img" },
-        { src: "assets/images/werk2.jpg", type: "img" },
-        { src: "assets/images/grote_tekening.jpg", type: "img" },
-        { src: "assets/images/grote_tekening2.jpg", type: "img" },
-      ],
-      screenCols: 1,
-      sort: "carousel",
-      year: 2022,
-      id: "3",
-    },
-  ];
-
   React.useEffect(() => {
     setSectionRefs(items.map((_) => React.createRef()));
   }, [items.length]);
@@ -88,6 +55,21 @@ const Page = () => {
 
     return scrollPosition >= minScroll && scrollPosition < maxScroll;
   };
+
+  React.useEffect(() => {
+    console.log(router.query);
+    if (sectionRefs && router.query && Object.keys(router.query).length > 0) {
+      const { i } = router.query;
+      setTimeout(() => {
+        const index = parseInt(i.toString());
+        const ref = sectionRefs[index].current;
+        setCurrentIndex(index);
+        console.log(ref);
+        ref?.scrollIntoView({ behavior: "smooth" });
+        router.replace("/");
+      }, 3000);
+    }
+  }, [sectionRefs, router.query]);
 
   return (
     <div className="home-page" onScroll={handleScroll} ref={scrollRef}>

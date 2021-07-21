@@ -8,7 +8,7 @@ import {
 interface IPageScrollerProps {
   currentIndex: number;
   pageCount: number;
-  scrollSteps?: number;
+  scrollSteps?: number | number[];
   refs?: React.RefObject<HTMLElement>[];
   orientation?: "horizontal" | "vertical";
   controls?: boolean;
@@ -24,13 +24,18 @@ const PageScroller: React.FC<IPageScrollerProps> = ({
   controls = false,
   onScrollTo,
 }) => {
+
+  const getCurrentOffset = (currentIndex: number) => {
+    return Array.isArray(scrollSteps) ? (scrollSteps[currentIndex]) : scrollSteps;
+  }
+
   const previous = (targetIndex?: number) => {
-    const target = targetIndex === undefined ? (currentIndex - scrollSteps >= 0 ? targetIndex ?? currentIndex - scrollSteps : 0) :targetIndex;
+    const target = targetIndex === undefined ? (currentIndex - getCurrentOffset(currentIndex) >= 0 ? targetIndex ?? currentIndex - getCurrentOffset(currentIndex) : 0) : targetIndex;
     scrollTo(target, false);
   };
 
   const next = (targetIndex?: number) => {
-    const target = targetIndex === undefined ? (currentIndex < pageCount - 1 ? currentIndex + scrollSteps : pageCount - 1 ) : targetIndex;
+    const target = targetIndex === undefined ? (currentIndex < pageCount - 1 ? currentIndex + getCurrentOffset(currentIndex) : pageCount - 1) : targetIndex;
     scrollTo(target, true);
   };
 
@@ -38,7 +43,7 @@ const PageScroller: React.FC<IPageScrollerProps> = ({
     refs[index]?.current?.scrollIntoView({
       block: !forward ? "end" : "start",
       inline: !forward ? "end" : "start",
-      behavior: "auto"
+      behavior: "smooth"
     });
 
     if (onScrollTo != undefined) {
@@ -47,21 +52,25 @@ const PageScroller: React.FC<IPageScrollerProps> = ({
   }
 
   const renderItems = (): JSX.Element[] => {
-    return Array.from(Array(pageCount).keys()).map((_, i) => (
-      <li
+    return Array.from(Array(Math.ceil(pageCount) ?? 0).keys()).map((_, i) => {
+      const scrollSteps = getCurrentOffset(currentIndex);
+      return (
+        <li
           key={i}
-          className={`page-scroll-item${currentIndex === (i*scrollSteps) ? " active" : ""}`}
+          data-scrollid={(i * (scrollSteps))}
+          className={`page-scroll-item${currentIndex === (i * (scrollSteps)) ? " active" : ""}`}
         >
           <a onClick={(e) => {
             e.preventDefault();
-            if (i*scrollSteps > currentIndex) {
-              next(i*scrollSteps);
+            if (i * scrollSteps > currentIndex) {
+              next(i * scrollSteps);
             } else {
-              previous(i*scrollSteps);
+              previous(i * scrollSteps);
             }
           }} />
         </li>
-    ));
+      )
+    });
   };
 
   return (

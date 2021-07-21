@@ -15,9 +15,8 @@ export interface IContentContainer {
   type: IContentType;
   sort: string;
   material?: string;
-  year: number;
+  year: number | string;
   active?: boolean;
-  id: string;
 }
 
 const ContentContainer: React.FC<

@@ -27,6 +27,12 @@
     transition: opacity 1s ease-in-out;
     transition-delay: var(--transition-delay);
 
+    &.inverted {
+      p {
+        color: black;
+      }
+    }
+
     p {
       line-height: 1rem;
       margin-right: -2rem;
