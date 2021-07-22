@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 import "@fortawesome/fontawesome-free/js/all.min.js";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
-interface IAppProps extends AppProps { }
+interface IAppProps extends AppProps {}
 
 const App = ({ Component, pageProps }: IAppProps) => {
   const router = useRouter();
@@ -24,7 +24,7 @@ const App = ({ Component, pageProps }: IAppProps) => {
       <Head>
         <title>Babet Kanis</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <link href="/fonts/fonts.css" rel="stylesheet" />
+        <link href="assets/fonts/fonts.css" rel="stylesheet" />
         <meta name="Babet Kanis" content="Babet Kanis portfolio website" />
         <link
           rel="stylesheet"

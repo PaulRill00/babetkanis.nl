@@ -57,14 +57,12 @@ const Page: NextPage = () => {
   };
 
   React.useEffect(() => {
-    console.log(router.query);
     if (sectionRefs && router.query && Object.keys(router.query).length > 0) {
       const { i } = router.query;
       setTimeout(() => {
         const index = parseInt(i.toString());
         const ref = sectionRefs[index].current;
         setCurrentIndex(index);
-        console.log(ref);
         ref?.scrollIntoView({ behavior: "smooth" });
         router.replace("/");
       }, 3000);
