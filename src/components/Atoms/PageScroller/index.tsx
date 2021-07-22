@@ -13,6 +13,7 @@ interface IPageScrollerProps {
   orientation?: "horizontal" | "vertical";
   controls?: boolean;
   onScrollTo?: (index: number) => void;
+  desiredScrollPosition?: number | undefined;
 }
 
 const PageScroller: React.FC<IPageScrollerProps> = ({
@@ -23,19 +24,29 @@ const PageScroller: React.FC<IPageScrollerProps> = ({
   orientation = "vertical",
   controls = false,
   onScrollTo,
+  desiredScrollPosition,
 }) => {
-
   const getCurrentOffset = (currentIndex: number) => {
-    return Array.isArray(scrollSteps) ? (scrollSteps[currentIndex]) : scrollSteps;
-  }
+    return Array.isArray(scrollSteps) ? scrollSteps[currentIndex] : scrollSteps;
+  };
 
   const previous = (targetIndex?: number) => {
-    const target = targetIndex === undefined ? (currentIndex - getCurrentOffset(currentIndex) >= 0 ? targetIndex ?? currentIndex - getCurrentOffset(currentIndex) : 0) : targetIndex;
+    const target =
+      targetIndex === undefined
+        ? currentIndex - getCurrentOffset(currentIndex) >= 0
+          ? targetIndex ?? currentIndex - getCurrentOffset(currentIndex)
+          : 0
+        : targetIndex;
     scrollTo(target, false);
   };
 
   const next = (targetIndex?: number) => {
-    const target = targetIndex === undefined ? (currentIndex < pageCount - 1 ? currentIndex + getCurrentOffset(currentIndex) : pageCount - 1) : targetIndex;
+    const target =
+      targetIndex === undefined
+        ? currentIndex < pageCount - 1
+          ? currentIndex + getCurrentOffset(currentIndex)
+          : pageCount - 1
+        : targetIndex;
     scrollTo(target, true);
   };
 
@@ -43,13 +54,13 @@ const PageScroller: React.FC<IPageScrollerProps> = ({
     refs[index]?.current?.scrollIntoView({
       block: !forward ? "end" : "start",
       inline: !forward ? "end" : "start",
-      behavior: "smooth"
+      behavior: "smooth",
     });
 
     if (onScrollTo != undefined) {
       onScrollTo(index);
     }
-  }
+  };
 
   const renderItems = (): JSX.Element[] => {
     return Array.from(Array(Math.ceil(pageCount) ?? 0).keys()).map((_, i) => {
@@ -57,38 +68,42 @@ const PageScroller: React.FC<IPageScrollerProps> = ({
       return (
         <li
           key={i}
-          data-scrollid={(i * (scrollSteps))}
-          className={`page-scroll-item${currentIndex === (i * (scrollSteps)) ? " active" : ""}`}
+          data-scrollid={i * scrollSteps}
+          className={`page-scroll-item${
+            currentIndex === i * scrollSteps ? " active" : ""
+          }`}
         >
-          <a onClick={(e) => {
-            e.preventDefault();
-            if (i * scrollSteps > currentIndex) {
-              next(i * scrollSteps);
-            } else {
-              previous(i * scrollSteps);
-            }
-          }} />
+          <a
+            onClick={(e) => {
+              e.preventDefault();
+              if (i * scrollSteps > currentIndex) {
+                next(i * scrollSteps);
+              } else {
+                previous(i * scrollSteps);
+              }
+            }}
+          />
         </li>
-      )
+      );
     });
   };
+
+  React.useEffect(() => {
+    if (desiredScrollPosition !== undefined) {
+      scrollTo(desiredScrollPosition, true);
+    }
+  }, [desiredScrollPosition]);
 
   return (
     <div className={`page-scroller ${orientation}`}>
       {controls && (
-        <FontAwesomeIcon
-          icon={faChevronLeft}
-          onClick={() => previous()}
-        />
+        <FontAwesomeIcon icon={faChevronLeft} onClick={() => previous()} />
       )}
 
       <ul>{renderItems()}</ul>
 
       {controls && (
-        <FontAwesomeIcon
-          icon={faChevronRight}
-          onClick={() => next()}
-        />
+        <FontAwesomeIcon icon={faChevronRight} onClick={() => next()} />
       )}
     </div>
   );

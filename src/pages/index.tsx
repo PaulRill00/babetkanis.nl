@@ -9,6 +9,9 @@ import { useRouter } from "next/router";
 const Page: NextPage = () => {
   const router = useRouter();
   const [scrollPosition, setScrollPosition] = React.useState(0);
+  const [desiredScrollPosition, setDesiredScrollPosition] = React.useState<
+    undefined | number
+  >(undefined);
   const [prevScrollPosition, setPrevScrollPosition] = React.useState(0);
   const [scrollDirection, setScrollDirection] = React.useState<"up" | "down">(
     "down"
@@ -59,15 +62,21 @@ const Page: NextPage = () => {
   React.useEffect(() => {
     if (sectionRefs && router.query && Object.keys(router.query).length > 0) {
       const { i } = router.query;
-      setTimeout(() => {
-        const index = parseInt(i.toString());
-        const ref = sectionRefs[index].current;
-        setCurrentIndex(index);
-        ref?.scrollIntoView({ behavior: "smooth" });
-        router.replace("/");
-      }, 3000);
+      setDesiredScrollPosition(parseInt(i.toString()));
     }
   }, [sectionRefs, router.query]);
+
+  React.useEffect(() => {
+    if (
+      currentIndex === desiredScrollPosition &&
+      setDesiredScrollPosition instanceof Function
+    ) {
+      setTimeout(() => {
+        setDesiredScrollPosition(undefined);
+        router.replace("/");
+      }, 500);
+    }
+  }, [currentIndex, desiredScrollPosition]);
 
   return (
     <div className="home-page" onScroll={handleScroll} ref={scrollRef}>
@@ -75,6 +84,7 @@ const Page: NextPage = () => {
         currentIndex={currentIndex}
         pageCount={items.length}
         refs={sectionRefs}
+        desiredScrollPosition={desiredScrollPosition}
       />
       {items.map((item, index) => (
         <section
