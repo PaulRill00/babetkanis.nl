@@ -80,6 +80,8 @@ const CarouselContainer: React.FC<ICarouselContainerProps> = ({ srcs }) => {
       >
         {Object.values(srcs).map((x, index) => {
           const isSingle = !Array.isArray(x);
+          const single = x as IImgCarouselItem | IVideoCarouselItem;
+          const multiple = x as (IImgCarouselItem | IVideoCarouselItem)[];
 
           const content = ({
             src,
@@ -111,14 +113,14 @@ const CarouselContainer: React.FC<ICarouselContainerProps> = ({ srcs }) => {
           };
 
           return isSingle ? (
-            <section {...sectionProps}>{content(x)}</section>
+            <section {...sectionProps}>{content(single)}</section>
           ) : (
             <section
               {...sectionProps}
-              style={{ "--columns": x.length } as React.CSSProperties}
+              style={{ "--columns": multiple.length } as React.CSSProperties}
               className="multiple"
             >
-              {x.map((y, index) => {
+              {multiple.map((y, index) => {
                 return <section key={index}>{content(y)}</section>;
               })}
             </section>
