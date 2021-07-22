@@ -4,20 +4,32 @@ import PageScroller from "@Atoms/PageScroller";
 import Video from "@Atoms/Video";
 import Image from "@Atoms/Image";
 
+interface ICarouselItem {
+  type: "img" | "video";
+  src: string;
+}
+
+interface IImgCarouselItem extends ICarouselItem {
+  type: "img";
+}
+
+interface IVideoCarouselItem extends ICarouselItem {
+  type: "video";
+  unmutable?: boolean;
+}
+
 export interface ICarouselContainerProps extends IContentContainer {
   type: "carousel";
   srcs: {
-    type: "img" | "video";
-    src: string;
-    span?: number;
-  }[];
-  screenCols?: number;
+    [index: number]:
+      | IImgCarouselItem
+      | IImgCarouselItem[]
+      | IVideoCarouselItem
+      | IVideoCarouselItem[];
+  };
 }
 
-const CarouselContainer: React.FC<ICarouselContainerProps> = ({
-  srcs,
-  screenCols = 1,
-}) => {
+const CarouselContainer: React.FC<ICarouselContainerProps> = ({ srcs }) => {
   const [windowWidth, setWindowWidth] = React.useState(0);
   const scrollRef = React.createRef<HTMLDivElement>();
   const [elRefs, setElRefs] = React.useState<React.RefObject<HTMLElement>[]>(
@@ -30,7 +42,7 @@ const CarouselContainer: React.FC<ICarouselContainerProps> = ({
   }, []);
 
   React.useEffect(() => {
-    setElRefs(srcs.map((_) => React.createRef()));
+    setElRefs(Object.keys(srcs).map((_) => React.createRef()));
   }, [srcs]);
 
   const handleScroll = () => {
@@ -40,17 +52,16 @@ const CarouselContainer: React.FC<ICarouselContainerProps> = ({
     }
   };
 
+  const srcsLength = () => Object.keys(srcs).length;
+
   return (
     <div className="container-content carousel-container">
       <div className="controls">
         <PageScroller
           currentIndex={currentIndex}
           orientation="horizontal"
-          pageCount={srcs.length / screenCols}
-          scrollSteps={srcs.map((x) => {
-            const itemSpan = srcs.length / (srcs.length / screenCols);
-            return x.span ? x.span - itemSpan + 1 : itemSpan;
-          })}
+          pageCount={srcsLength()}
+          scrollSteps={1}
           refs={elRefs}
           controls
           onScrollTo={setCurrentIndex}
@@ -60,29 +71,55 @@ const CarouselContainer: React.FC<ICarouselContainerProps> = ({
         className="carousel-items"
         style={
           {
-            "--columns": srcs.reduce((a, b) => a + (b.span ?? 1), 0).toString(),
-            "--col-width": 1 / screenCols,
+            "--columns": srcsLength(),
           } as React.CSSProperties
         }
         ref={scrollRef}
         onScroll={handleScroll}
       >
-        {srcs.map((x, index) => (
-          <section
-            key={index}
-            ref={elRefs[index]}
-            id={index.toString()}
-            style={x.span ? { gridColumn: `span ${x.span ?? 1}` } : {}}
-          >
-            {x.src != "" ? (
-              x.type === "img" ? (
-                <Image src={x.src} alt="" />
+        {Object.values(srcs).map((x, index) => {
+          const isSingle = !Array.isArray(x);
+
+          const content = ({
+            src,
+            type,
+            ...props
+          }: IImgCarouselItem | IVideoCarouselItem) => {
+            return src != "" ? (
+              type === "img" ? (
+                <Image src={src} alt="" />
               ) : (
-                <Video src={x.src} autoPlay muted loop />
+                <Video
+                  src={src}
+                  autoPlay
+                  muted
+                  loop
+                  unmutable={(props as IVideoCarouselItem).unmutable ?? false}
+                />
               )
-            ) : null}
-          </section>
-        ))}
+            ) : null;
+          };
+
+          const sectionProps = {
+            key: index,
+            ref: elRefs[index],
+            id: index.toString(),
+          };
+
+          return isSingle ? (
+            <section {...sectionProps}>{content(x)}</section>
+          ) : (
+            <section
+              {...sectionProps}
+              style={{ "--columns": x.length } as React.CSSProperties}
+              className="multiple"
+            >
+              {x.map((y) => {
+                return <section>{content(y)}</section>;
+              })}
+            </section>
+          );
+        })}
       </div>
     </div>
   );
