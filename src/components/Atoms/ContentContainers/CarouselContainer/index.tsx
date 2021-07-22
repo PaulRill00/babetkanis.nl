@@ -16,6 +16,7 @@ interface IImgCarouselItem extends ICarouselItem {
 interface IVideoCarouselItem extends ICarouselItem {
   type: "video";
   unmutable?: boolean;
+  muted?: boolean;
 }
 
 export interface ICarouselContainerProps extends IContentContainer {
@@ -92,7 +93,11 @@ const CarouselContainer: React.FC<ICarouselContainerProps> = ({ srcs }) => {
                 <Video
                   src={src}
                   autoPlay
-                  muted
+                  muted={
+                    (props as IVideoCarouselItem).muted !== undefined
+                      ? (props as IVideoCarouselItem).muted
+                      : true
+                  }
                   loop
                   unmutable={(props as IVideoCarouselItem).unmutable ?? false}
                 />
@@ -103,7 +108,6 @@ const CarouselContainer: React.FC<ICarouselContainerProps> = ({ srcs }) => {
           const sectionProps = {
             key: index,
             ref: elRefs[index],
-            id: index.toString(),
           };
 
           return isSingle ? (
@@ -114,8 +118,8 @@ const CarouselContainer: React.FC<ICarouselContainerProps> = ({ srcs }) => {
               style={{ "--columns": x.length } as React.CSSProperties}
               className="multiple"
             >
-              {x.map((y) => {
-                return <section>{content(y)}</section>;
+              {x.map((y, index) => {
+                return <section key={index}>{content(y)}</section>;
               })}
             </section>
           );

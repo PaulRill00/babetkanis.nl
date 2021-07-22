@@ -1,16 +1,15 @@
-import OverviewImage, { IOverviewImageProps } from "@Atoms/OverviewImage";
+import OverviewItem, { IOverviewItemProps } from "@Atoms/OverviewItem";
 import PagePadding from "@Templates/PagePadding";
 import React from "react";
 import items from "../data/data";
 
 const Page = () => {
-
   return (
     <PagePadding size="small">
       <div className="overview-grid">
         {items.map((item, index) => {
-          const props: IOverviewImageProps = {
-            redirectId: index
+          const props: IOverviewItemProps = {
+            redirectId: index,
           };
 
           switch (item.type) {
@@ -21,7 +20,10 @@ const Page = () => {
               props.videoSrc = item.videoSrc;
               break;
             case "carousel": {
-              const first = item.srcs[0];
+              const first = Array.isArray(item.srcs[0])
+                ? item.srcs[0][0]
+                : item.srcs[0];
+
               if (first.type === "img") {
                 props.imageSrc = first.src;
               } else {
@@ -30,9 +32,7 @@ const Page = () => {
             }
           }
 
-          return (
-            <OverviewImage key={index} {...props} />
-          )
+          return <OverviewItem key={index} {...props} />;
         })}
       </div>
     </PagePadding>

@@ -1,5 +1,6 @@
 import React from "react";
 import { IContentContainer } from "@Molecules/ContentContainer";
+import Image from "@Atoms/Image";
 
 export interface IImageContainerProps extends IContentContainer {
   type: "image";
@@ -9,7 +10,7 @@ export interface IImageContainerProps extends IContentContainer {
 const ImageContainer: React.FC<IImageContainerProps> = ({ imageSrc }) => {
   return (
     <div className="container-content image-container">
-      <img src={imageSrc} alt="" />
+      <Image src={imageSrc} alt="" />
     </div>
   );
 };

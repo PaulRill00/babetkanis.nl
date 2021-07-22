@@ -22,22 +22,21 @@ const items: (
         src: "assets/videos/20190610_124617 (2021_02_24 15_10_28 UTC).mp4",
         type: "video",
       },
-      {
-        src: "assets/videos/20190610_124617 (2021_02_24 15_10_28 UTC).mp4",
-        type: "video",
-      },
       [
         {
           src: "assets/videos/20190610_124644 (2021_05_28 08_34_35 UTC).mp4",
           type: "video",
+          unmutable: true,
         },
         {
           src: "assets/videos/20190610_125004 (2021_02_24 15_10_28 UTC).mp4",
           type: "video",
+          unmutable: true,
         },
         {
           src: "assets/videos/20190610_124759 (2021_02_24 15_10_28 UTC).mp4",
           type: "video",
+          unmutable: true,
         },
       ],
       {

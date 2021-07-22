@@ -1,21 +1,20 @@
+import Image from "@Atoms/Image";
+import Video from "@Atoms/Video";
 import { useRouter } from "next/router";
 import React from "react";
 
-export interface IOverviewImageProps {
+export interface IOverviewItemProps {
   redirectId: number;
   imageSrc?: string;
   videoSrc?: string;
 }
 
-const OverviewImage: React.FC<IOverviewImageProps> = ({
+const OverviewItem: React.FC<IOverviewItemProps> = ({
   redirectId,
   imageSrc,
   videoSrc,
 }) => {
   const videoRef = React.createRef<HTMLVideoElement>();
-  const [loading, setLoading] = React.useState(
-    videoSrc !== undefined ? true : false
-  );
   const router = useRouter();
 
   const onVideoEnter = () => {
@@ -38,32 +37,21 @@ const OverviewImage: React.FC<IOverviewImageProps> = ({
     router.push(`/?i=${redirectId}`);
   };
 
-  const unLoad = () => {
-    setLoading(false);
-  };
-
   return (
     <div className="overview-image" onClick={onClick}>
-      {loading && (
-        <div className="loading" style={{ color: "white" }}>
-          <div className="loader"></div>
-        </div>
-      )}
-      {imageSrc && <img src={imageSrc} />}
+      {imageSrc && <Image src={imageSrc} />}
       {videoSrc && (
-        <video
+        <Video
           src={videoSrc}
           onMouseEnter={onVideoEnter}
           onMouseLeave={onVideoLeave}
           ref={videoRef}
           muted
           autoPlay
-          onLoad={unLoad}
-          onLoadedData={unLoad}
         />
       )}
     </div>
   );
 };
 
-export default React.memo(OverviewImage);
+export default React.memo(OverviewItem);
