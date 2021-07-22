@@ -38,7 +38,7 @@ const OverviewItem: React.FC<IOverviewItemProps> = ({
   };
 
   return (
-    <div className="overview-image" onClick={onClick}>
+    <div className="overview-item" onClick={onClick}>
       {imageSrc && <Image src={imageSrc} />}
       {videoSrc && (
         <Video
@@ -47,7 +47,7 @@ const OverviewItem: React.FC<IOverviewItemProps> = ({
           onMouseLeave={onVideoLeave}
           ref={videoRef}
           muted
-          autoPlay
+          loop
         />
       )}
     </div>
