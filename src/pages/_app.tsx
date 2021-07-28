@@ -23,6 +23,7 @@ const App = ({ Component, pageProps }: IAppProps) => {
     <>
       <Head>
         <title>Babet Kanis</title>
+        <link rel="shortcut icon" href="/assets/favicon.ico" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link href="assets/fonts/fonts.css" rel="stylesheet" />
         <meta name="Babet Kanis" content="Babet Kanis portfolio website" />

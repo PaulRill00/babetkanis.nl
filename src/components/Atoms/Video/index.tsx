@@ -8,9 +8,15 @@ interface IVideoProps
     HTMLVideoElement
   > {
   unmutable?: boolean;
+  videoRef?: React.RefObject<HTMLVideoElement>;
 }
 
-const Video: React.FC<IVideoProps> = ({ unmutable, muted, ...props }) => {
+const Video: React.FC<IVideoProps> = ({
+  unmutable,
+  muted,
+  videoRef,
+  ...props
+}) => {
   const [isMuted, setIsMuted] = React.useState<boolean>(
     muted === undefined ? true : muted
   );
@@ -19,7 +25,13 @@ const Video: React.FC<IVideoProps> = ({ unmutable, muted, ...props }) => {
     <div className="video">
       <Loader />
       {unmutable ? <Unmute muted={isMuted} setMuted={setIsMuted} /> : null}
-      <video {...props} muted={isMuted} />
+      <video
+        muted={isMuted}
+        {...{
+          ...props,
+          ref: videoRef,
+        }}
+      />
     </div>
   );
 };

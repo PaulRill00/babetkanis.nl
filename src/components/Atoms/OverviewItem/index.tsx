@@ -45,7 +45,7 @@ const OverviewItem: React.FC<IOverviewItemProps> = ({
           src={videoSrc}
           onMouseEnter={onVideoEnter}
           onMouseLeave={onVideoLeave}
-          ref={videoRef}
+          videoRef={videoRef}
           muted
           loop
         />

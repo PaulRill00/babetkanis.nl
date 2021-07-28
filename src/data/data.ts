@@ -19,22 +19,22 @@ const items: (
     type: "carousel",
     srcs: [
       {
-        src: "assets/videos/20190610_124617 (2021_02_24 15_10_28 UTC).mp4",
+        src: "assets/videos/Watercyclus1.mp4",
         type: "video",
       },
       [
         {
-          src: "assets/videos/20190610_124644 (2021_05_28 08_34_35 UTC).mp4",
+          src: "assets/videos/Watercyclus2.mp4",
           type: "video",
           unmutable: true,
         },
         {
-          src: "assets/videos/20190610_125004 (2021_02_24 15_10_28 UTC).mp4",
+          src: "assets/videos/Watercyclus4.mp4",
           type: "video",
           unmutable: true,
         },
         {
-          src: "assets/videos/20190610_124759 (2021_02_24 15_10_28 UTC).mp4",
+          src: "assets/videos/Watercyclus3.mp4",
           type: "video",
           unmutable: true,
         },
@@ -86,7 +86,7 @@ const items: (
     type: "carousel",
     srcs: [
       {
-        src: "assets/videos/00019 (2021_02_24 15_10_28 UTC).mp4",
+        src: "assets/videos/Speling.mp4",
         type: "video",
         unmutable: true,
       },
@@ -152,8 +152,8 @@ const items: (
   {
     type: "carousel",
     srcs: [
-      { src: "assets/videos/film_draaien_geluid.avi", type: "video" },
-      { src: "assets/videos/film_draaien.avi", type: "video" },
+      { src: "assets/videos/film_draaien_geluid.mp4", type: "video" },
+      { src: "assets/videos/film_draaien.mp4", type: "video" },
     ],
     sort: "video",
     year: 2018,
