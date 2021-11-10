@@ -19,8 +19,7 @@ const Page: NextPage = () => {
   const [sectionRefs, setSectionRefs] = React.useState<
     React.RefObject<HTMLElement>[]
   >([]);
-
-  const [pageCount, setPageCount] = React.useState(1);
+  const [activeItem, setActiveItem] = React.useState(0);
 
   const handleScroll = () => {
     const position = scrollRef.current?.scrollTop;
@@ -38,67 +37,63 @@ const Page: NextPage = () => {
 
   React.useEffect(() => {
     setSectionRefs(items.map((_) => React.createRef()));
-  }, [items.length]);
+  }, []);
 
   React.useEffect(() => {
-    if (pageCount > items.length) return;
+    const activePos = activeItem * windowHeight;
+    const margin = 50;
+    const scrollRound = Math.ceil(scrollPosition);
 
-    setTimeout(() => {
-      console.log(pageCount);
-      setPageCount(pageCount + 1);
-    }, 400);
-  }, [pageCount]);
-
-  const itemIsActive = (offset: number): boolean => {
-    const scrollOffset = windowHeight / 5;
-
-    let minScroll = 0;
-    let maxScroll = 0;
-
-    if (scrollDirection === "down") {
-      minScroll = windowHeight * offset - scrollOffset;
-      maxScroll = windowHeight * (offset + 1);
-    }
-    if (scrollDirection === "up") {
-      minScroll = windowHeight * offset;
-      maxScroll = windowHeight * (offset + 1) - scrollOffset;
+    if (
+      scrollRound >= activePos - margin &&
+      scrollRound <= activePos + margin
+    ) {
+      return;
     }
 
-    return scrollPosition >= minScroll && scrollPosition < maxScroll;
-  };
+    const pos = scrollRound / windowHeight;
+    const current = scrollDirection === "down" ? Math.floor : Math.ceil;
+
+    console.log({
+      scrollPosition,
+      scrollRound,
+      windowHeight,
+      pos,
+      round: Math.round(pos),
+      floor: Math.floor(pos),
+      current: current(pos),
+    });
+
+    setActiveItem(Math.round(pos));
+  }, [scrollPosition, windowHeight]);
 
   React.useEffect(() => {
-    console.log(router.query);
-    if (sectionRefs && router.query && Object.keys(router.query).length > 0) {
+    if (router.query && Object.keys(router.query).length > 0) {
       const { i } = router.query;
-      setTimeout(() => {
-        const index = parseInt(i.toString());
-        const ref = sectionRefs[index].current;
-        setCurrentIndex(index);
-        console.log(ref);
-        ref?.scrollIntoView({ behavior: "smooth" });
-        router.replace("/");
-      }, 3000);
+      const index = parseInt(i.toString());
+      setCurrentIndex(index);
+      router.replace("/");
     }
-  }, [sectionRefs, router.query]);
+  }, [router.query]);
 
   return (
     <div className="home-page" onScroll={handleScroll} ref={scrollRef}>
       <PageScroller
         currentIndex={currentIndex}
-        pageCount={pageCount}
+        pageCount={items.length}
         refs={sectionRefs}
       />
-      {items.slice(0, pageCount).map((item, index) => (
+      {items.map((item, index) => (
         <section
           key={index}
+          id={index.toString()}
           className="content-container"
           ref={sectionRefs[index]}
         >
           <ContentContainer
             key={index}
             {...item}
-            active={itemIsActive(index)}
+            active={activeItem === index}
           />
         </section>
       ))}

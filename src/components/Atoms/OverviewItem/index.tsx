@@ -34,7 +34,7 @@ const OverviewItem: React.FC<IOverviewItemProps> = ({
   }, [videoRef]);
 
   const onClick = () => {
-    router.push(`/?i=${redirectId}`);
+    router.push(`/?i=${redirectId}#${redirectId}`);
   };
 
   return (

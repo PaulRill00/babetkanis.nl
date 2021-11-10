@@ -8,12 +8,21 @@ const items: (
   | ICarouselContainerProps
 )[] = [
   {
-    type: "video",
-    videoSrc: "assets/videos/werk.mp4",
-    videoType: "video/mp4",
+    type: "carousel",
+    srcs: [
+      {
+        src: "assets/videos/werk1.mp4",
+        type: "video",
+        unmutable: true,
+      },
+      {
+        src: "assets/videos/werk2.mp4",
+        type: "video",
+        unmutable: true,
+      },
+    ],
     sort: "video installatie",
     year: 2021,
-    unmutable: true,
   },
   {
     type: "carousel",
@@ -21,6 +30,7 @@ const items: (
       {
         src: "assets/videos/Watercyclus1.mp4",
         type: "video",
+        unmutable: true,
       },
       [
         {
@@ -152,8 +162,12 @@ const items: (
   {
     type: "carousel",
     srcs: [
-      { src: "assets/videos/film_draaien_geluid.mp4", type: "video", unmutable: true },
-      { src: "assets/videos/film_draaien.mp4", type: "video", unmutable: true},
+      {
+        src: "assets/videos/film_draaien_geluid.mp4",
+        type: "video",
+        unmutable: true,
+      },
+      { src: "assets/videos/film_draaien.mp4", type: "video" },
     ],
     sort: "video",
     year: 2018,
@@ -161,7 +175,7 @@ const items: (
   {
     type: "carousel",
     srcs: [
-      { src: "assets/videos/digging.mp4", type: "video", unmutable: true },
+      { src: "assets/videos/digging.mp4", type: "video" },
       [
         { src: "assets/videos/digging2.mp4", type: "video", unmutable: true },
         { src: "assets/videos/digging3.mp4", type: "video", unmutable: true },

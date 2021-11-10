@@ -25,12 +25,7 @@ const Video: React.FC<IVideoProps> = ({
     <div className="video">
       <Loader />
       {unmutable ? <Unmute muted={isMuted} setMuted={setIsMuted} /> : null}
-      <video
-        muted={isMuted}
-        preload="auto"
-        ref={videoRef}
-        {...props}
-      />
+      <video muted={isMuted} preload="auto" ref={videoRef} loop {...props} />
     </div>
   );
 };
