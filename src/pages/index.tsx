@@ -9,9 +9,6 @@ import { useRouter } from "next/router";
 const Page: NextPage = () => {
   const router = useRouter();
   const [scrollPosition, setScrollPosition] = React.useState(0);
-  const [desiredScrollPosition, setDesiredScrollPosition] = React.useState<
-    undefined | number
-  >(undefined);
   const [prevScrollPosition, setPrevScrollPosition] = React.useState(0);
   const [scrollDirection, setScrollDirection] = React.useState<"up" | "down">(
     "down"
@@ -22,6 +19,8 @@ const Page: NextPage = () => {
   const [sectionRefs, setSectionRefs] = React.useState<
     React.RefObject<HTMLElement>[]
   >([]);
+
+  const [pageCount, setPageCount] = React.useState(1);
 
   const handleScroll = () => {
     const position = scrollRef.current?.scrollTop;
@@ -40,6 +39,15 @@ const Page: NextPage = () => {
   React.useEffect(() => {
     setSectionRefs(items.map((_) => React.createRef()));
   }, [items.length]);
+
+  React.useEffect(() => {
+    if (pageCount > items.length) return;
+
+    setTimeout(() => {
+      console.log(pageCount);
+      setPageCount(pageCount + 1);
+    }, 400);
+  }, [pageCount]);
 
   const itemIsActive = (offset: number): boolean => {
     const scrollOffset = windowHeight / 5;
@@ -60,33 +68,28 @@ const Page: NextPage = () => {
   };
 
   React.useEffect(() => {
+    console.log(router.query);
     if (sectionRefs && router.query && Object.keys(router.query).length > 0) {
       const { i } = router.query;
-      setDesiredScrollPosition(parseInt(i.toString()));
+      setTimeout(() => {
+        const index = parseInt(i.toString());
+        const ref = sectionRefs[index].current;
+        setCurrentIndex(index);
+        console.log(ref);
+        ref?.scrollIntoView({ behavior: "smooth" });
+        router.replace("/");
+      }, 3000);
     }
   }, [sectionRefs, router.query]);
-
-  React.useEffect(() => {
-    if (
-      currentIndex === desiredScrollPosition &&
-      setDesiredScrollPosition instanceof Function
-    ) {
-      setTimeout(() => {
-        setDesiredScrollPosition(undefined);
-        router.replace("/");
-      }, 500);
-    }
-  }, [currentIndex, desiredScrollPosition]);
 
   return (
     <div className="home-page" onScroll={handleScroll} ref={scrollRef}>
       <PageScroller
         currentIndex={currentIndex}
-        pageCount={items.length}
+        pageCount={pageCount}
         refs={sectionRefs}
-        desiredScrollPosition={desiredScrollPosition}
       />
-      {items.map((item, index) => (
+      {items.slice(0, pageCount).map((item, index) => (
         <section
           key={index}
           className="content-container"

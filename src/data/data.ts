@@ -152,8 +152,8 @@ const items: (
   {
     type: "carousel",
     srcs: [
-      { src: "assets/videos/film_draaien_geluid.mp4", type: "video" },
-      { src: "assets/videos/film_draaien.mp4", type: "video" },
+      { src: "assets/videos/film_draaien_geluid.mp4", type: "video", unmutable: true },
+      { src: "assets/videos/film_draaien.mp4", type: "video", unmutable: true},
     ],
     sort: "video",
     year: 2018,
@@ -161,10 +161,10 @@ const items: (
   {
     type: "carousel",
     srcs: [
-      { src: "assets/videos/digging.mp4", type: "video" },
+      { src: "assets/videos/digging.mp4", type: "video", unmutable: true },
       [
-        { src: "assets/videos/digging2.mp4", type: "video" },
-        { src: "assets/videos/digging3.mp4", type: "video" },
+        { src: "assets/videos/digging2.mp4", type: "video", unmutable: true },
+        { src: "assets/videos/digging3.mp4", type: "video", unmutable: true },
       ],
       [
         {
