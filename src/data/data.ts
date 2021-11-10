@@ -1,6 +1,6 @@
-import { ICarouselContainerProps } from "@Atoms/ContentContainers/CarouselContainer";
-import { IImageContainerProps } from "@Atoms/ContentContainers/ImageContainer";
-import { IVideoContainerProps } from "@Atoms/ContentContainers/VideoContainer";
+import { ICarouselContainerProps } from "../components/Atoms/ContentContainers/CarouselContainer";
+import { IImageContainerProps } from "../components/Atoms/ContentContainers/ImageContainer";
+import { IVideoContainerProps } from "../components/Atoms/ContentContainers/VideoContainer";
 
 const items: (
   | IVideoContainerProps

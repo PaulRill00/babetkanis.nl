@@ -1,4 +1,4 @@
-import Loader from "@Atoms/Loader";
+import Loader from "../../Atoms/Loader";
 import React from "react";
 
 interface IImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {}

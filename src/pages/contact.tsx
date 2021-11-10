@@ -1,4 +1,4 @@
-import PagePadding from "@Templates/PagePadding";
+import PagePadding from "../components/Templates/PagePadding";
 import React from "react";
 import { Image } from "semantic-ui-react";
 

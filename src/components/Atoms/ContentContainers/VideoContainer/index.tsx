@@ -1,6 +1,6 @@
 import React from "react";
-import { IContentContainer } from "@Molecules/ContentContainer";
-import Video from "@Atoms/Video";
+import { IContentContainer } from "../../../Molecules/ContentContainer";
+import Video from "../../../Atoms/Video";
 
 export interface IVideoContainerProps extends IContentContainer {
   type: "video";

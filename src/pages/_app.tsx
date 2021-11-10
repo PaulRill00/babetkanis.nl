@@ -2,7 +2,7 @@ import React from "react";
 import { AppProps } from "next/app";
 import Head from "next/head";
 
-import PageLayout from "@Templates/Layout";
+import PageLayout from "../components/Templates/Layout";
 
 import "./../styles/style.scss";
 import { useRouter } from "next/router";

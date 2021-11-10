@@ -1,6 +1,6 @@
 import React from "react";
-import { IContentContainer } from "@Molecules/ContentContainer";
-import Image from "@Atoms/Image";
+import { IContentContainer } from "../../../Molecules/ContentContainer";
+import Image from "../../../Atoms/Image";
 
 export interface IImageContainerProps extends IContentContainer {
   type: "image";

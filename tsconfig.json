@@ -17,14 +17,7 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "esnext",
-    "baseUrl": ".",
-    "paths": {
-      "@Atoms/*": ["src/components/Atoms/*"],
-      "@Molecules/*": ["src/components/Molecules/*"],
-      "@Organisms/*": ["src/components/Organisms/*"],
-      "@Templates/*": ["src/components/Templates/*"],
-      "@interfaces/*": ["src/interfaces/*"]
-    }
+    "baseUrl": "."
   },
   "exclude": ["node_modules"],
   "include": ["**/*.ts", "**/*.tsx"]

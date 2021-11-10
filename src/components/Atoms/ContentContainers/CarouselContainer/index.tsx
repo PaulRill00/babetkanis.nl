@@ -1,8 +1,8 @@
 import React from "react";
-import { IContentContainer } from "@Molecules/ContentContainer";
-import PageScroller from "@Atoms/PageScroller";
-import Video from "@Atoms/Video";
-import Image from "@Atoms/Image";
+import { IContentContainer } from "../../../Molecules/ContentContainer";
+import PageScroller from "../../../Atoms/PageScroller";
+import Video from "../../../Atoms/Video";
+import Image from "../../../Atoms/Image";
 
 interface ICarouselItem {
   type: "img" | "video";

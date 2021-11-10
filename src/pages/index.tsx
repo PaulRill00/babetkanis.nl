@@ -2,8 +2,8 @@ import React from "react";
 import { NextPage } from "next";
 import items from "../data/data";
 
-import PageScroller from "@Atoms/PageScroller";
-import ContentContainer from "@Molecules/ContentContainer";
+import PageScroller from "../components/Atoms/PageScroller";
+import ContentContainer from "../components/Molecules/ContentContainer";
 import { useRouter } from "next/router";
 
 const Page: NextPage = () => {

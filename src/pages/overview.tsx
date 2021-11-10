@@ -1,5 +1,7 @@
-import OverviewItem, { IOverviewItemProps } from "@Atoms/OverviewItem";
-import PagePadding from "@Templates/PagePadding";
+import OverviewItem, {
+  IOverviewItemProps,
+} from "../components/Atoms/OverviewItem";
+import PagePadding from "../components/Templates/PagePadding";
 import React from "react";
 import items from "../data/data";
 

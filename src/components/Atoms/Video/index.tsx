@@ -1,5 +1,5 @@
-import Loader from "@Atoms/Loader";
-import Unmute from "@Atoms/Unmute";
+import Loader from "../../Atoms/Loader";
+import Unmute from "../../Atoms/Unmute";
 import React from "react";
 
 interface IVideoProps

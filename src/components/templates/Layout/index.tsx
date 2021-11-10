@@ -1,4 +1,4 @@
-import NavBar from "@Atoms/NavBar";
+import NavBar from "../../Atoms/NavBar";
 import React from "react";
 
 interface IPageLayoutProps {

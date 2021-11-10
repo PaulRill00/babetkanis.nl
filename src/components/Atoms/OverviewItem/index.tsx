@@ -1,5 +1,5 @@
-import Image from "@Atoms/Image";
-import Video from "@Atoms/Video";
+import Image from "../../Atoms/Image";
+import Video from "../../Atoms/Video";
 import { useRouter } from "next/router";
 import React from "react";
 

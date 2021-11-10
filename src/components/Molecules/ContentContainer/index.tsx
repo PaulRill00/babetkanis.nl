@@ -1,13 +1,13 @@
 import React from "react";
 import VideoContainer, {
   IVideoContainerProps,
-} from "@Atoms/ContentContainers/VideoContainer";
+} from "../../Atoms/ContentContainers/VideoContainer";
 import ImageContainer, {
   IImageContainerProps,
-} from "@Atoms/ContentContainers/ImageContainer";
+} from "../../Atoms/ContentContainers/ImageContainer";
 import CarouselContainer, {
   ICarouselContainerProps,
-} from "@Atoms/ContentContainers/CarouselContainer";
+} from "../../Atoms/ContentContainers/CarouselContainer";
 
 export type IContentType = "video" | "image" | "carousel";
 
