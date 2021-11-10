@@ -9,10 +9,6 @@ import { useRouter } from "next/router";
 const Page: NextPage = () => {
   const router = useRouter();
   const [scrollPosition, setScrollPosition] = React.useState(0);
-  const [prevScrollPosition, setPrevScrollPosition] = React.useState(0);
-  const [scrollDirection, setScrollDirection] = React.useState<"up" | "down">(
-    "down"
-  );
   const [windowHeight, setWindowHeight] = React.useState(0);
   const scrollRef = React.createRef<HTMLDivElement>();
   const [currentIndex, setCurrentIndex] = React.useState(0);
@@ -24,9 +20,7 @@ const Page: NextPage = () => {
   const handleScroll = () => {
     const position = scrollRef.current?.scrollTop;
     if (position !== undefined) {
-      setPrevScrollPosition(scrollPosition);
       setScrollPosition(position);
-      setScrollDirection(prevScrollPosition > scrollPosition ? "up" : "down");
       setCurrentIndex(Math.round(scrollPosition / windowHeight));
     }
   };
@@ -52,18 +46,6 @@ const Page: NextPage = () => {
     }
 
     const pos = scrollRound / windowHeight;
-    const current = scrollDirection === "down" ? Math.floor : Math.ceil;
-
-    console.log({
-      scrollPosition,
-      scrollRound,
-      windowHeight,
-      pos,
-      round: Math.round(pos),
-      floor: Math.floor(pos),
-      current: current(pos),
-    });
-
     setActiveItem(Math.round(pos));
   }, [scrollPosition, windowHeight]);
 
@@ -94,6 +76,7 @@ const Page: NextPage = () => {
             key={index}
             {...item}
             active={activeItem === index}
+            forceLoad={index === 0}
           />
         </section>
       ))}

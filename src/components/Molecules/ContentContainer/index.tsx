@@ -17,6 +17,7 @@ export interface IContentContainer {
   material?: string;
   year: number | string;
   active?: boolean;
+  forceLoad?: boolean;
 }
 
 const ContentContainer: React.FC<

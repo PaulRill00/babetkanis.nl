@@ -2,10 +2,11 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(2, 1fr);
+  padding: 0 5rem;
   column-gap: 1rem;
   row-gap: 1rem;
   place-items: start;
-  max-height: 100%;
+  overflow-y: auto;
 
   &:before {
     content: "";
@@ -22,5 +23,12 @@
 
   .overview-image {
     grid-column: 0;
+  }
+}
+
+@media (max-width: $break-point) {
+  .overview-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 1fr);
   }
 }

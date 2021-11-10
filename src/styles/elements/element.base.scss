@@ -4,7 +4,7 @@
 
 body {
   background-color: $black;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
 }
 
@@ -29,8 +29,9 @@ p {
 .app_pagelayout {
   display: inline-block;
   width: 100%;
-  padding-bottom: 2rem;
+  padding-bottom: 4rem;
   height: 100vh;
+  overflow-y: auto;
 
   &.fullscreen {
     nav {
@@ -49,10 +50,4 @@ p {
 
 body ::-webkit-scrollbar {
   display: none;
-}
-
-@media (max-width: 1000px) {
-  .app_pagelayout {
-    height: 100%;
-  }
 }

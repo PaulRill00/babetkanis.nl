@@ -29,7 +29,7 @@
   }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: $break-point) {
   .contact-grid {
     grid-template-columns: 1fr;
     row-gap: 3rem;

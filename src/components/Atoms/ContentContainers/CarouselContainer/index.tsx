@@ -28,9 +28,13 @@ export interface ICarouselContainerProps extends IContentContainer {
       | IVideoCarouselItem
       | IVideoCarouselItem[];
   };
+  forceLoad?: boolean;
 }
 
-const CarouselContainer: React.FC<ICarouselContainerProps> = ({ srcs }) => {
+const CarouselContainer: React.FC<ICarouselContainerProps> = ({
+  srcs,
+  forceLoad,
+}) => {
   const [windowWidth, setWindowWidth] = React.useState(0);
   const scrollRef = React.createRef<HTMLDivElement>();
   const [elRefs, setElRefs] = React.useState<React.RefObject<HTMLElement>[]>(
@@ -102,6 +106,7 @@ const CarouselContainer: React.FC<ICarouselContainerProps> = ({ srcs }) => {
                   }
                   loop
                   unmutable={(props as IVideoCarouselItem).unmutable ?? false}
+                  forceLoad={forceLoad}
                 />
               )
             ) : null;

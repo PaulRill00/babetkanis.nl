@@ -5,6 +5,7 @@
   display: flex;
   transition: 0.15s ease;
   position: relative;
+  aspect-ratio: 1 / 1;
 
   &:hover {
     --scale-dimension: 0.8rem;

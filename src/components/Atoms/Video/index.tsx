@@ -9,12 +9,14 @@ interface IVideoProps
   > {
   unmutable?: boolean;
   videoRef?: React.RefObject<HTMLVideoElement>;
+  forceLoad?: boolean;
 }
 
 const Video: React.FC<IVideoProps> = ({
   unmutable,
   muted,
   videoRef,
+  forceLoad = false,
   ...props
 }) => {
   const [isMuted, setIsMuted] = React.useState<boolean>(
@@ -25,7 +27,13 @@ const Video: React.FC<IVideoProps> = ({
     <div className="video">
       <Loader />
       {unmutable ? <Unmute muted={isMuted} setMuted={setIsMuted} /> : null}
-      <video muted={isMuted} preload="auto" ref={videoRef} loop {...props} />
+      <video
+        muted={isMuted}
+        preload={!forceLoad ? "auto" : "none"}
+        ref={videoRef}
+        loop
+        {...props}
+      />
     </div>
   );
 };
